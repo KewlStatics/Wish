@@ -101,7 +101,7 @@ function findItem(item, money) {
 		price = shop[len][2];
 		if (price > money) {
 			amount = price - money;
-			this.errorReply("You don't have you enough money for this. You need " + amount + currencyName(amount) + " more to buy " + item + ".");
+			this.errorReply("You don't have you enough Wish Stones for this. You need " + amount + currencyName(amount) + " more to buy " + item + ".");
 			return false;
 		}
 		return price;
@@ -144,7 +144,7 @@ exports.commands = {
 		const amount = Db('money').get(toId(target), 0);
 		this.sendReplyBox(Tools.escapeHTML(target) + " has " + amount + currencyName(amount) + ".");
 	},
-	wallethelp: ["/wallet [user] - Shows the amount of money a user has."],
+	wallethelp: ["/wallet [user] - Shows the amount of Wish Stones a user has."],
 
 	givebuck: 'givemoney',
 	givebucks: 'givemoney',
@@ -186,17 +186,17 @@ exports.commands = {
 		if (Users.get(username)) Users(username).popup(user.name + " has taken " + amount + " from you. You now have " + total + ".");
 		logMoney(username + " had " + amount + " taken away by " + user.name + ". " + username + " now has " + total);
 	},
-	takemoneyhelp: ["/takemoney [user], [amount] - Take a certain amount of money from a user."],
+	takemoneyhelp: ["/takemoney [user], [amount] - Take a certain amount of wish Stones from a user."],
 
 	resetbuck: 'resetmoney',
 	resetbucks: 'resetmoney',
 	resetmoney: function (target, room, user) {
 		if (!this.can('forcewin')) return false;
 		Db('money').set(toId(target), 0);
-		this.sendReply(target + " now has 0 bucks.");
+		this.sendReply(target + " now has 0 Wish Stones.");
 		logMoney(user.name + " reset the money of " + target + ".");
 	},
-	resetmoneyhelp: ["/resetmoney [user] - Reset user's money to zero."],
+	resetmoneyhelp: ["/resetmoney [user] - Reset user's Wish Stone Level to zero."],
 
 	transfer: 'transfermoney',
 	transferbuck: 'transfermoney',
@@ -212,7 +212,7 @@ exports.commands = {
 		if (toId(username) === user.userid) return this.errorReply("You cannot transfer to yourself.");
 		if (username.length > 19) return this.errorReply("Username cannot be longer than 19 characters.");
 		if (typeof amount === 'string') return this.errorReply(amount);
-		if (amount > Db('money').get(user.userid, 0)) return this.errorReply("You cannot transfer more money than what you have.");
+		if (amount > Db('money').get(user.userid, 0)) return this.errorReply("You cannot transfer more Wish Stones than what you have.");
 
 		Db('money')
 			.set(user.userid, Db('money').get(user.userid) - amount)
@@ -260,7 +260,7 @@ shop: function(target, room, user) {
 			);
 		}
 	},
-	shophelp: ["/shop - Display items you can buy with money."],
+	shophelp: ["/shop - Display items you can buy with Wish Stones."],
 
 	buy: function (target, room, user) {
 		if (!target) return this.parse('/help buy');
