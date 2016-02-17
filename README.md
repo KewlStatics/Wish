@@ -1,4 +1,4 @@
-Pokémon Showdown
+Pokémon Showdow
 ========================================================================
 
 Navigation: [Website][1] | **Server repository** | [Client repository][2]
